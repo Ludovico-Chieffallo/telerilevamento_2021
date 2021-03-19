@@ -37,9 +37,8 @@ plot(p224r63_2011, col=cln)
 #richiamiamo quindi il plot con le modifiche applicate e con col definiamo il colore che preferiamo, in questo caso con il nome che abbiamo applicato prima cioè cl
 plot(p224r63_2011, col=cl)
 #Con la funzione par(mfrow=c(2,2)) indichiamo che vogliamo più plot vicini, precisamente stiamo dicendo che vogliamo dei plot in combinazione 2x2 che si distribuiscano su righe, quindi dopo il primo plot il secondo si andrà a posizionare alla sua destra, il terzo in basso al primo e così via
-par(mfrow=c(2,2)) #PER PLOT SINGOLI
+par(mfrow=c(2,2)) #PER PLOT SINGOLI (i plot che sono già multipli, come i plot visti in precedenza visti con la funzione brick, non si possono ulteriormente dividere con par)
 #se vogliamo invece la stessa cosa ma ordinando i plot in colonna invece useremo par(mfcol(2,2))
-par(mfcol=c(2,2)) #PER PLOT SINGOLI
-
+par(mfcol=c(2,2)) 
 
 plotRGB(p224r63_2011, r=3 , g=2 , b=1, stretch="lin")
