@@ -113,8 +113,6 @@ plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="Hist") #Qui abbiamo utilizzato His
 
 
 
-
-
 #DVI per 2 anni compariamo le differenze nel tempo
 #Ricordiamo che DVi è uguale a NIR-RED
 #Mentre NDVI (NIR-RED)/(NIR+RED)
