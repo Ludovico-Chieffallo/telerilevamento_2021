@@ -82,8 +82,63 @@ plot(p224r63_2011$B4_sre, col=clnir)
 dev.off()
 
 
+#Ora utilizzeremo la funzione plotRGB che ci restituirà un'immagine su 3 layer (per immagini Raster)
+#Come abbiamo visto prima nell'ordine dei colori di Landsat la banda 1 era corrispondente al Blue, la banda 2 al verde, la banda 3 al rosso
+#Quindi per avere un'immagine dai colori naturali dovremo usare r=3, g=2, b=1
+
+plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="Lin") #stretch prende i valori di ogni singola banda e li "estende" così da mostrare ogni singolo valore intermedio di colori
+                                                    #lin sta per lineare (è possibile utilizzare altri parametri come "hist")
+
+#Possiamo anche provare a scambiare i numeri ma ci restituirà un'immagine non naturale
+#In questo modo possiamo giocare con i colori e capire empiricamente quale combinazione può restituirci colori adatti alle nostre ricerche e statistiche
+
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
+plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="Lin") 
+plotRGB(p224r63_2011, r=3, g=2, b=4, stretch="Lin")
+
+#Importiamo il pdf delle nostre immagini nella nostra cartella predefinita (per visualizzarla usare getwd())
+pdf("primo pdf")
+par(mfrow=c(2,2))
+plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="Lin")
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
+plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="Lin")
+plotRGB(p224r63_2011, r=3, g=2, b=4, stretch="Lin")
+dev.off()
+
+#Facciamo un par su 3 righe e 1 colonna per vedere le differenze di tutti i plot (colori naturali, falsi colori e con histogram stretching)  
+par(mfrow=c(3,1))
+plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="Lin")
+plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="Lin")
+plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="Hist") #Qui abbiamo utilizzato Hist
 
 
-plotRGB(p224r63_2011, r=3 , g=2 , b=1, stretch="lin")
+
+
+
+#DVI per 2 anni compariamo le differenze nel tempo
+#Ricordiamo che DVi è uguale a NIR-RED
+#Mentre NDVI (NIR-RED)/(NIR+RED)
+
+p224r63_1988<-brick("p224r63_1988_masked.grd") #Come fatto precedentemente richiamiamo con Brickil file "p224r63_1988_masked.grd" 
+plot(p224r63_1988)
+
+#DVI del 1988 e del 2011
+dvi1988<-p224r63_1988$B4_sre - p224r63_1988$B3_sre   #Il DVI come detto sopra si calcola con NIR-RED quindi utilizzeremo la banda del NIR e quella del RED
+dvi2011<-p224r63_2011$B4_sre - p224r63_2011$B3_sre
+
+par(mfrow=c(2,1))         
+plot(dvi1988) 
+plot(dvi2011)
+
+cldvi<-colorRampPalette(c('red', 'orange', 'yellow')) (100)   #Definiamo dei colori con colorRampPalette
+par(mfrow=c(2,1))                                             
+plot(dvi1988, col=cldvi)
+plot(dvi2011, col=cldvi)
+
+#Differenza nel tempo quindi 2011-1988
+
+difdvi<-dvi2011- dvi1988
+cldif<-colorRampPalette(c('blue', 'white', 'red'))(100)
+plot(difdvi, col=cldif)
 
 
