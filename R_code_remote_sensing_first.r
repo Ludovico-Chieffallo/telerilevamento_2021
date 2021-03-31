@@ -112,15 +112,6 @@ plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="Lin")
 plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="Hist") #Qui abbiamo utilizzato Hist
 
 
-#Adesso creiamo il nostro PDF
-pdf("hist e lin")
-par(mfrow=c(2,2))
-plotRGB(p224r63_1988, r=4,g=3, b=2, stretch="lin")
-plotRGB(p224r63_2011, r=4,g=3, b=2, stretch="lin")
-plotRGB(p224r63_1988, r=4,g=3, b=2, stretch="hist")
-plotRGB(p224r63_2011, r=4,g=3, b=2, stretch="hist")
-dev.off()
-
 
 #DVI per 2 anni compariamo le differenze nel tempo
 #Ricordiamo che DVi è uguale a NIR-RED
@@ -142,6 +133,15 @@ plotRGB(p224r63_1988, r=4,g=3, b=2, stretch="lin")      #adesso vediamo le diffe
 plotRGB(p224r63_2011, r=4,g=3, b=2, stretch="lin")
 plotRGB(p224r63_1988, r=4,g=3, b=2, stretch="hist")
 plotRGB(p224r63_2011, r=4,g=3, b=2, stretch="hist")
+
+#Adesso creiamo il nostro PDF
+pdf("hist e lin")
+par(mfrow=c(2,2))
+plotRGB(p224r63_1988, r=4,g=3, b=2, stretch="lin")
+plotRGB(p224r63_2011, r=4,g=3, b=2, stretch="lin")
+plotRGB(p224r63_1988, r=4,g=3, b=2, stretch="hist")
+plotRGB(p224r63_2011, r=4,g=3, b=2, stretch="hist")
+dev.off()
 
 
 
