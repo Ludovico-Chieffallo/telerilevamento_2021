@@ -112,6 +112,15 @@ plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="Lin")
 plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="Hist") #Qui abbiamo utilizzato Hist
 
 
+#Adesso creiamo il nostro PDF
+pdf("hist e lin")
+par(mfrow=c(2,2))
+plotRGB(p224r63_1988, r=4,g=3, b=2, stretch="lin")
+plotRGB(p224r63_2011, r=4,g=3, b=2, stretch="lin")
+plotRGB(p224r63_1988, r=4,g=3, b=2, stretch="hist")
+plotRGB(p224r63_2011, r=4,g=3, b=2, stretch="hist")
+dev.off()
+
 
 #DVI per 2 anni compariamo le differenze nel tempo
 #Ricordiamo che DVi è uguale a NIR-RED
@@ -119,6 +128,22 @@ plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="Hist") #Qui abbiamo utilizzato His
 
 p224r63_1988<-brick("p224r63_1988_masked.grd") #Come fatto precedentemente richiamiamo con Brickil file "p224r63_1988_masked.grd" 
 plot(p224r63_1988)
+
+plotRGB(p224r63_1988, r=3,g=2, b=1, stretch="lin")
+plotRGB(p224r63_1988, r=4,g=3, b=2, stretch="lin")      #Giochiamo un po' con i colori
+plotRGB(p224r63_2011, r=4,g=3, b=2, stretch="lin")
+
+par(mfrow=c(2,1))
+plotRGB(p224r63_1988, r=4,g=3, b=2, stretch="lin")
+plotRGB(p224r63_2011, r=4,g=3, b=2, stretch="lin")      #Facciamo un Par 2 righe e una colonna
+
+par(mfrow=c(2,2))
+plotRGB(p224r63_1988, r=4,g=3, b=2, stretch="lin")      #adesso vediamo le differenze tra stretch="lin" e stretch="hist"
+plotRGB(p224r63_2011, r=4,g=3, b=2, stretch="lin")
+plotRGB(p224r63_1988, r=4,g=3, b=2, stretch="hist")
+plotRGB(p224r63_2011, r=4,g=3, b=2, stretch="hist")
+
+
 
 #DVI del 1988 e del 2011
 dvi1988<-p224r63_1988$B4_sre - p224r63_1988$B3_sre   #Il DVI come detto sopra si calcola con NIR-RED quindi utilizzeremo la banda del NIR e quella del RED
