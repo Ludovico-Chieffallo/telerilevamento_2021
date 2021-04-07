@@ -25,3 +25,17 @@ plot(lst_2010)
 plot(lst_2015)
 
 dev.off()
+
+
+
+
+rlist<-list.files(pattern = "lst")
+rlist
+import<- lapply(rlist, raster)
+import
+#import e rlist sono nomi x
+#list.files serve per creare una lista accomunata da una variabile
+#lapply si serve della lista fatta con list.files per importare i file in R e applica una funzione che in questo caso è raster
+#come si riuniscono tutti questi file raster? con Stack
+unico<-stack(import)
+plot(lol)
