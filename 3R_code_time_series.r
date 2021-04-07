@@ -41,3 +41,8 @@ tgr<-stack(import)
 plot(tgr)
 
 
+plotRGB(tgr, r=2,g=3,b=4, stretch="lin")
+
+
+install.packages("rasterVis")
+library(rasterVis)
