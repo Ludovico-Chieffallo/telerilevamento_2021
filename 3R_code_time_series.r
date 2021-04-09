@@ -41,8 +41,48 @@ tgr<-stack(import)
 plot(tgr)
 
 
+
 plotRGB(tgr, r=2,g=3,b=4, stretch="lin")
 
 
 install.packages("rasterVis")
 library(rasterVis)
+
+
+
+library(rasterVis)
+library(raster)
+
+levelplot(Tgr)
+levelplot(Tgr$lst_2000)
+cl<-colorRampPalette(c('blue','light blue','pink','red'))(100)
+
+levelplot(Tgr, col.regions=cl)
+#cambiare nome alle amppe plot
+levelplot(Tgr, col.regions=cl, main="LST variation in time", names.attr=c('july 2000','july 2005','july 2010','july 2015'))
+
+
+#melt
+
+setwd("c:/lab/melt")
+getwd()
+
+mlist<-list.files(pattern = "annual")
+mlist
+
+melt_import<-lapply(mlist, raster)
+melt_import
+
+melt<-stack(melt_import)
+melt
+plot(melt)
+
+levelplot(melt)
+#analisi multitemporali
+melt_amount <- melt$X2007annual_melt - melt$X1979annual_melt
+clb<-colorRampPalette(c('blue','white','red'))(100)
+plot(melt_amount, col=clb)
+
+levelplot(melt_amount, col.regions=clb)
+
+install.packages("knitr")
