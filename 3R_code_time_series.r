@@ -58,7 +58,7 @@ levelplot(Tgr$lst_2000)
 cl<-colorRampPalette(c('blue','light blue','pink','red'))(100)
 
 levelplot(Tgr, col.regions=cl)
-#cambiare nome alle amppe plot
+#cambiare nome alle mappe plot
 levelplot(Tgr, col.regions=cl, main="LST variation in time", names.attr=c('july 2000','july 2005','july 2010','july 2015'))
 
 
