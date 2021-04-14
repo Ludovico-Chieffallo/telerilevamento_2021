@@ -8,4 +8,14 @@ library(ncdf4)
 setwd("C:/lab/")
 getwd()
 swi<-raster("swi.nc")
-swi
+print(swi)
+
+
+plot(swi)
+cls<-colorRampPalette(c( 'red', 'blue','yellow')) (100)
+
+plot(swi, col=cls, main="SWI")
+#ricampionamento
+swires<-aggregate(swi, fact=100)
+plot(swires,col=cls)
+
