@@ -33,3 +33,18 @@ plot(soc$map, col=cl)
 #facciamo una prova scaricando delle immagini che vogliamo noi
 #andiamo sul sito https://www.esa.int/ESA_Multimedia/Missions/Solar_Orbiter/(result_type)/images
 #a questo punto possiamo scaricare la nostra immagine preferita
+#facciamo un brick di nuovo
+#io ho scaricato un immagine sul magnetismo del suolo
+
+magb <- brick("Magnetogram_of_the_Sun_pillars.png")
+
+#facciamo una classificazione non supervisionata
+
+magbc <- unsuperClass(magb,nClasses = 3)
+plot(magbc$map)
+
+#funziona anche con fotografie classiche con classiche estenzioni
+#qui provo con la foto del profilo che ho caricato su github
+io<- brick ("foto github.jpg")
+ioc<-unsuperClass(io, nClasses =100)
+plot(ioc$map)
