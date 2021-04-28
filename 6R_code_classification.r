@@ -48,3 +48,20 @@ plot(magbc$map)
 io<- brick ("foto github.jpg")
 ioc<-unsuperClass(io, nClasses =100)
 plot(ioc$map)
+
+
+#A questo punto utilizziamo i dati sul Grand Canyon 
+
+library(raster)
+library(RStoolbox)
+setwd("c:/lab/")  #Settiamo la nostra cartella di lavoro
+getwd()    #Controlliamo se la cartella è quella corretta
+
+#Essendo un file multistrato (RGB) dobbiamo usare la funzione brick per portarla all'interno di R  
+
+gc<-brick ("dolansprings_oli_2013088_canyon_lrg.jpg")
+
+#Plottiamo il risultato sia con stretch "lin" sia "hist"
+
+plotRGB(gc, r=1,g=2,b=3, stretch="lin")
+plotRGB(gc, r=1,g=2,b=3, stretch="hist")
