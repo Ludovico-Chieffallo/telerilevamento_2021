@@ -65,3 +65,16 @@ gc<-brick ("dolansprings_oli_2013088_canyon_lrg.jpg")
 
 plotRGB(gc, r=1,g=2,b=3, stretch="lin")
 plotRGB(gc, r=1,g=2,b=3, stretch="hist")
+
+
+#Andremo a fare una classificazione non supervisionata
+
+gcc2<- unsuperClass(gc,nClasses = 2)  #Decidiamo di definire 2 classi
+gcc2      #Visualizziamo il risultato 
+plot(gcc2$map)     #Plottiamo decidendo di estrarre la mappa
+
+#facciamo la stessa cosa con 4 classi 
+
+gcc4<- unsuperClass(gc, nClasses = 4)
+gcc4
+plot(gcc4$map)
