@@ -71,3 +71,6 @@ p224r63_2011re_pca
 
 
 plotRGB(p224r63_2011re_pca$map, 1,2,3,stretch="lin")
+
+
+
