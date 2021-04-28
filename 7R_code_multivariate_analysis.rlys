@@ -1,0 +1,30 @@
+#Iniziamo richiamaando i nostri pacchetti necessari
+
+library(raster)
+library(RStoolbox)
+
+#Settiamo la nostra cartella di lavoro
+
+setwd("c:/lab/")
+getwd()
+
+#importiamo dentro R con la funzione brick la nostra immagine .grd
+
+p224r63_2011 <-brick("p224r63_2011_masked.grd")
+
+#Vediamo un plot generico
+plot(p224r63_2011)
+
+#capiamo cosa c'è all'interno del file
+p224r63_2011
+
+#Confrontiamo la banda 1 con la banda 2
+#pch è il la forma dei punti che andremo a vedere nel nostro grafico, possiamo decidere noi la forma
+#cex indica invece la grandezza di questi punti
+
+plot(p224r63_2011$B1_sre,p224r63_2011$B2_sre, col="red", pch=23, cex=2)
+
+#Se volessimo vedere invece un confronto tra tutte le bande? Utilizzeremo la funzione Pairs
+#La funzione Pair mette in correlazione a due a due tutte le variabili di un certo Dataset(nel nostro caso sono le bande)
+
+pairs(p224r63_2011)
