@@ -87,3 +87,5 @@ plot(vi2, col=cl)
 
 #facciamo la differenza questa volta del ndvi
 ndifdvi1<-ndvi-ndvi2
+
+
