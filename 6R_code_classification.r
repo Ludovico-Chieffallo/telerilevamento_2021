@@ -12,7 +12,7 @@ plotRGB(so,2,3,1, stretch="lin")
 
 #facciamo una classificazione
 #classificazione non supervisionata (lasciamo fare al software)
-#la unzione unsuperClass serve proprio a fare una classificazione non supervisionata
+#la funzione unsuperClass serve proprio a fare una classificazione non supervisionata
 
 soc<-unsuperClass(so, nClasses = 3)
 soc<-unsuperClass(so, nClasses = 20) #proviamo a farlo con 20 classi
