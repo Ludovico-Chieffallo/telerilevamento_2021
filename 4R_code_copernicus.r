@@ -1,3 +1,6 @@
+#https://land.copernicus.vgt.vito.be/PDF/portal/Application.html#Home
+
+
 #Soil Water Index - 10-daily SWI 12.5km Global V3
 
 
