@@ -1,5 +1,8 @@
 #Andare sul link: https://land.copernicus.vgt.vito.be/PDF/portal/Application.html#Home
 #Scegliere la categoria di dati a cui si è interessati
+#Sulla destra avremo la parte dedicata alla sensoristica (per scegliere correttamente possiamo andare a vedere i dettagli nella pagina principale della categoria)
+#SI seleziona il prodotto da scaricare scegliendo le date di inizio e fine di acquisizione 
+#Troveremo varie immagini con le relative date
 
 
 
