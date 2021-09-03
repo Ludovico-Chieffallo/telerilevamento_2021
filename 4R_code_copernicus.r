@@ -28,7 +28,11 @@ cls<-colorRampPalette(c( 'red', 'blue','yellow')) (100) #Creiamo una Palette
 
 plot(swi, col=cls, main="SWI") #Qui vediamo il pLot con la palette appena creata
 
-#ricampionamento
-swires<-aggregate(swi, fact=100)
-plot(swires,col=cls) 
+#Questi dati possono essere ricampionati, quindi possiamo diminuirne la risoluzione, in questo modo saremo in grado in futuro di gestire meglio il file.
+#Cosa facciamo in concreto? diminiuamo il numero di pixel (prendiamo più pixel, si fa una media dei valori e si condensano in uno solo)
 
+#Ricampioneremo con la funzione aggregate
+#Fact sarà il fattore sulla base del quale diminuiremo i pixel, per esempio se fact=10 vorrà dire che LINEARMENTE diminuiremo i pixel di 10 volte 
+#Consideriamo che abbiamo detto lineare quindi dobbiamo calcolare nel nostro caso 10x10 (quindi ogni 100 pixel ne uscirà uno che ha la media dei valori di tutti e 100)
+swires<-aggregate(swi, fact=100)
+plot(swires,col=cls) #Qui vedremo infine il plot del file ricampionato con la nostra palette creata in precedenza.
