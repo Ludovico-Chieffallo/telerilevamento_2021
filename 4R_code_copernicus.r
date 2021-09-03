@@ -34,5 +34,6 @@ plot(swi, col=cls, main="SWI") #Qui vediamo il pLot con la palette appena creata
 #Ricampioneremo con la funzione aggregate
 #Fact sarà il fattore sulla base del quale diminuiremo i pixel, per esempio se fact=10 vorrà dire che LINEARMENTE diminuiremo i pixel di 10 volte 
 #Consideriamo che abbiamo detto lineare quindi dobbiamo calcolare nel nostro caso 10x10 (quindi ogni 100 pixel ne uscirà uno che ha la media dei valori di tutti e 100)
+#Questo tipo di ricampionamento viene definito Bilineare
 swires<-aggregate(swi, fact=100)
 plot(swires,col=cls) #Qui vedremo infine il plot del file ricampionato con la nostra palette creata in precedenza.
