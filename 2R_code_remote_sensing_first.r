@@ -1,5 +1,5 @@
 #Primo codice di telerilevamento
-#Creare una cartella, per windows evitare di creare la cartella sul desktop, crearla direttamente nel sistema operatico "C:" così da trovarla facilmente in seguito 
+#Creare una cartella (per windows evitare di creare la cartella sul desktop, crearla direttamente nel sistema operatico "C:" così da trovarla facilmente in seguito) 
 #Come nella lezione precedente usiamo install.packages("raster") e library(raster) (in library non dobbiamo usare le virgolette perchè ormai raster è all'interno di R)
 install.packages ("raster")
 library (raster)
@@ -21,8 +21,8 @@ plot(p224r63_2011)      #Con la funzione plot creiamo appunto un plot, che ci re
 
 
 #Utilizziamo la funzione colorRampPalette per cambiare i colori all'interno del plot e chiamiamo questa funzione "cl"
-cl<-colorRampPalette(c('black' , 'grey' , 'light grey')) (100)  #per far capire che black, grey e lightgrey fanno parte dello stesso arcomento(colore) dobbiamo usare un VETTORE, per questo ci mettiamo una parentesi e ci mettiamo la "c" che in R indica una serie di argomento
-                                                                #il (100) indica invece il numero dei livelli dei colori e deve essere messo fuori perchè non fa parte della funzione
+cl<-colorRampPalette(c('black' , 'grey' , 'light grey')) (100)  #Per far capire che black, grey e lightgrey fanno parte dello stesso argomento(colore) dobbiamo usare un VETTORE, per questo ci mettiamo una parentesi e ci mettiamo la "c" che in R indica una serie di argomenti
+                                                                #Il (100) indica invece il numero dei livelli dei colori e deve essere scritto esternamente perchè non fa parte della funzione
 
 #QUALCHE ESEMPIO CON I COLORI CAMBIATI
 clb<-colorRampPalette(c('dark blue' , 'blue' , 'light blue')) (100)
@@ -38,8 +38,10 @@ plot(p224r63_2011, col=cln)
 plot(p224r63_2011, col=cl)
 
 dev.off() #Con questo comando puliremo tutti i grafici
+
 #USO DI $
-plot(p224r63_2011$B1_sre)#In questo modo con il simbolo $ abbiamo collegato il l'immagine contenente tutte le bande e abbiamo collegato alla sola banda 1 con il nome "B1_sre"  
+plot(p224r63_2011$B1_sre)#In questo modo con il simbolo $ abbiamo collegato l'immagine contenente tutte le bande scegliendo la sola banda 1 con il nome "B1_sre" 
+                         #Banalmente abbiamo chiesto ad R di mostrarci la banda 1 di quell'immagine
 
 plot(p224r63_2011$B1_sre, col=cl) #Così abbiamo solamente aggiunto l'informazione col=cl che richiamerà il colore fatto con colorRampPalette
 
@@ -116,7 +118,7 @@ plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="Hist") #Qui abbiamo utilizzato His
 #Ricordiamo che DVi è uguale a NIR-RED
 #Mentre NDVI (NIR-RED)/(NIR+RED)
 
-p224r63_1988<-brick("p224r63_1988_masked.grd") #Come fatto precedentemente richiamiamo con Brickil file "p224r63_1988_masked.grd" 
+p224r63_1988<-brick("p224r63_1988_masked.grd") #Come fatto precedentemente richiamiamo con Brick il file "p224r63_1988_masked.grd" 
 plot(p224r63_1988)
 
 plotRGB(p224r63_1988, r=3,g=2, b=1, stretch="lin")
