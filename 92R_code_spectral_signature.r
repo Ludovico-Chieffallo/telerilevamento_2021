@@ -1,5 +1,3 @@
-
-
 library(ggplot2)
 library(rgdal)
 library(raster)
@@ -15,16 +13,17 @@ plotRGB(defor2, 1,2,3, stretch="hist")
 
 #per creare le firme spettrali utilizzeremo la funzione click
 click(defor2, id=T, xy=T, cell=T, type="p", pch=16, cex=4, col="yellow")
+#Possiamo fare click su foreste e acqua per creare la firma spettrale
 
-
+#Creiamo dei vettori
 band<-c(1,2,3)
-forest<-c(206,6,19)
+forest<-c(206,6,19) #Questi sono i valori risultanti dal click!
 water<- c(40,99,139)
 
 #creare un dataframe
 spectrals<-data.frame(band,forest,water)
 
-#plot delle firme soettrali
+#plot delle firme spettrali
 
 ggplot(spectrals, aes(x=band)) +
   geom_line(aes(y=forest), color="green") +
@@ -32,7 +31,7 @@ ggplot(spectrals, aes(x=band)) +
   labs(x="band",y="reflectance")
 
 
-#fare analisi multitemporale
+#Adesso possimao fare delle analisi multitemporali
 defor1 <- brick("defor1.jpg")
 plotRGB(defor1,1,2,3, stretch="lin")
 
@@ -57,7 +56,9 @@ click(defor1, id=T,xy=T, cell=T,type="p",pch=16, col= "yellow")
 #dataframe
 
 band <-c(1,2,3)
-# define the columns of the dataset:
+#Creiamo i vettori che ci serviranno per formare un dataframe:
+#Mettiamo il tempo uno di defor1 e il tempo 2 di defor 2
+#Di entrambi prendiamo 2 misurazioni (dell'acqua e della foresta)
 band <- c(1,2,3)
 time1 <- c(223,11,33)
 time1p2<-c(218,16,38)
@@ -67,8 +68,7 @@ time2p2<-c(149,157,133)
 
 spectralst <- data.frame(band, time1, time2,time1p2,time2p2)
 
-#plot
-
+#Infine possiamo plottare il tutto
 
 ggplot(spectrals, aes(x=band)) +
   geom_line(aes(y=time1), color="red") +
@@ -78,7 +78,7 @@ ggplot(spectrals, aes(x=band)) +
   labs(x="band",y="reflectance")
 
 
-#immagine dall'osservatorio NASA
+#facciamo lo stesso con un'immagine dall'osservatorio NASA
 
 eo<-brick("img.jpg")
 plotRGB(eo,1,2,3, stretch="lin")
@@ -101,9 +101,10 @@ datax<-data.frame(band,x1,x2,x3)
 datax
 
 
-
 ggplot(spectrals, aes(x=band)) +
   geom_line(aes(y=x1), color="red") +
   geom_line(aes(y=x2), color="purple") +
   geom_line(aes(y=x3), color="green") +
   labs(x="band",y="reflectance")
+
+#Quello che vedremo saranno le firme spettrali
