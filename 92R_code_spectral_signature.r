@@ -107,4 +107,3 @@ ggplot(spectrals, aes(x=band)) +
   geom_line(aes(y=x2), color="purple") +
   geom_line(aes(y=x3), color="green") +
   labs(x="band",y="reflectance")
-
