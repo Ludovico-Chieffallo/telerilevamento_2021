@@ -53,13 +53,13 @@ library(rasterVis)
 library(rasterVis)
 library(raster)
 
-levelplot(Tgr)
-levelplot(Tgr$lst_2000)
+levelplot(tgr)
+levelplot(tgr$lst_2000)
 cl<-colorRampPalette(c('blue','light blue','pink','red'))(100)
 
-levelplot(Tgr, col.regions=cl)
+levelplot(tgr, col.regions=cl)
 #cambiare nome alle mappe plot
-levelplot(Tgr, col.regions=cl, main="LST variation in time", names.attr=c('july 2000','july 2005','july 2010','july 2015'))
+levelplot(tgr, col.regions=cl, main="LST variation in time", names.attr=c('july 2000','july 2005','july 2010','july 2015'))
 
 
 #melt
