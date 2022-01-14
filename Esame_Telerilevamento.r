@@ -38,7 +38,7 @@ library(rworldmap)
 library(maps)
 library(maptools)
 library(rgbif)
-
+library(lattice)
 
 #crs(lol1) <- "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"
 #proj4string(lol1) <- CRS("+init=epsg:4326")
@@ -171,3 +171,16 @@ ggplot(data = spsign, aes(x = band, y="reflectance")) +
   labs(title="Firma spettrale")+
   scale_x_continuous(breaks = c(1,2,3),labels = c("RED","GREEN","BLUE"))
 
+
+
+
+#analisi multitemporale
+
+list<-list.files(pattern = "fuji")
+diffsnow<-lapply(list, raster)
+diffsnow<-stack(diffsnow)
+plot(diffsnow)
+
+diffsnow <-diffsnow$fuji2021-diffsnow$fuji2013
+clb<-colorRampPalette(c('blue','white','red'))(100)
+plot(diffsnow, col=clb)
