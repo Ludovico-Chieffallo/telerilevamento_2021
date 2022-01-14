@@ -159,3 +159,17 @@ plot(NDSI21, col=cld, main="NDSI 2021")
 #differenza di NDSI----
 diffNDSI<-NDSI21- NDSI13
 plot(diffNDSI, col=clb)
+#mappe con viridis e cividis----
+par(mfrow=c(2,2))
+plot(diffNDSI, col=cividis(256),main="cividis")
+plot(diffNDSI, col=viridis(256),main="viridis")
+
+
+#"magma" (or "A")
+#"inferno" (or "B")
+#"plasma" (or "C")
+#"viridis" (or "D")
+#"cividis" (or "E")
+#"rocket" (or "F")
+#"mako" (or "G")
+#"turbo" (or "H")
