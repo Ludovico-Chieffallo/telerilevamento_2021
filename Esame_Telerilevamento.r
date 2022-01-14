@@ -184,3 +184,17 @@ plot(diffsnow)
 diffsnow <-diffsnow$fuji2021-diffsnow$fuji2013
 clb<-colorRampPalette(c('blue','white','red'))(100)
 plot(diffsnow, col=clb)
+
+
+#NDSI
+
+#green-swir/green+swir
+NDSI13<-(fuji13$X13banda3-fuji13$X13banda6)/(fuji13$X13banda3+fuji13$X13banda6)
+NDSI21<-(fuji21$X21banda3-fuji21$X21banda6)/(fuji21$X21banda3+fuji21$X21banda6)
+
+cld <- colorRampPalette(c('blue','white','red'))(100)
+plot(NDSI13, col=cld, main="NDSI 2013")
+plot(NDSI21, col=cld, main="NDSI 2021")
+
+diffNDSI<-NDSI21- NDSI13
+plot(diffNDSI, col=clb)
