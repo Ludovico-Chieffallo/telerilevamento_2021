@@ -1,3 +1,4 @@
+#install packages----
 install.packages("ncdf4")
 install.packages("raster")
 install.packages("rnaturalearth")
@@ -9,76 +10,28 @@ install.packages("sf")
 install.packages("jpeg")
 install.packages("RStoolbox")
 
-
+#library----
 library(raster)
-library(RStoolbox) # classification
+library(RStoolbox) # classification #avrei potuto fare una ricerca di indici già presenti ma no vi era il NDSI
 library(ggplot2)
 library(gridExtra)
-library(raster)
 library(ncdf4)
 library(dplyr)
 library(knitr)
 library(tidyverse)
 library(ggplot2)
-library(colorist)
-library(rnaturalearth)
-library(dismo)
-library(rnaturalearthdata)
-library(rgeos)
 library(sp)
 library(rgdal)
 library(sf)
 library(maptools)
-library(fuzzySim)
-library(sdm)
 library(tidyr)
-library(usdm)
-library(rworldxtra)
-library(rworldmap)
-library(maps)
-library(maptools)
-library(rgbif)
 library(lattice)
 
-#crs(lol1) <- "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"
-#proj4string(lol1) <- CRS("+init=epsg:4326")
+#set working directory----
+setwd("c:/esame/")
+getwd()
 
-setwd("C:/esame/")
-
-tibet_87<-brick("tibet_1987.jpg")
-tibet_21<-brick("tibet_2021.jpg")
-
-par(mfrow=c(3,1))
-plot(tibet_87)
-plot(tibet_21)
-plotRGB(tibet_21,stretch="lin")
-plotRGB(tibet_87, stretch="lin")
-
-
-tibet<-list.files(pattern = "tibet")
-tibetimp<-lapply(tibet, raster)
-tibetstack<-stack(tibetimp)
-
-amount<- tibetstack$tibet_2021- tibetstack$tibet_1987
-plot(amount)
-
-levelplot(tibet_21$tibet_2021.1)
-ggRGB(tibet_21, r=1, g=2, b=3, stretch="lin")
-
-
-fuji2013<-brick("fuji2013.jpg")
-fuji2021<-brick("fuji2021.jpg")
-par(mfrow=c(1,2))
-plot(fuji2013)
-plot(fuji2021)
-
-plotRGB(fuji2013,1,2,3, stretch="lin")
-plotRGB(fuji2021,1,2,3, stretch="lin")
-dev.off()
-
-fuji2013<- brick("termal2013.jpg")
-
-
+#import file 2013----
 
 #landsat8<-list.files(pattern = "13banda")
 #landsat8<-lapply(landsat8,raster)
@@ -92,9 +45,12 @@ NIRband<-raster("13banda5.TIF")
 SWIR1band<-raster("13banda6.TIF")
 SWIR2band<-raster("13banda7.TIF")
 
+#create landsat 8 2013----
 landsat8_13<-stack(aereosol, BLUEband,GREENband,REDband,NIRband,SWIR1band,SWIR2band)
 plot(landsat8_13)
-plotRGB(landsat8_13,3,2,1,stretch="lin")
+plotRGB(landsat8_13,4,3,2,stretch="lin")
+
+#extend fuji----
 
 #ext<-drawExtent() #only for understand the coordinates
 # ext
@@ -105,9 +61,12 @@ plotRGB(landsat8_13,3,2,1,stretch="lin")
 #ymax       : 3923782 
 
 fujiext<-extent(c(288759.5,311842.3,3908119,3923782))
+
+#crop 2013----
 fuji13<-crop(landsat8_13,fujiext) 
 plotRGB(fuji13,4,3,2, stretch="lin")
 
+#import data 2021----
 aereosol21<-raster("21banda1.TIF")
 BLUEband21<-raster("21banda2.TIF")
 GREENband21<-raster("21banda3.TIF")
@@ -116,13 +75,15 @@ NIRband21<-raster("21banda5.TIF")
 SWIR1band21<-raster("21banda6.TIF")
 SWIR2band21<-raster("21banda7.TIF")
 
-landsat8_21<-stack(aereosol21,BLUEband21,GREENband21,REDband21)
-
+#create landsat 2021----
+landsat8_21<-stack(aereosol21,BLUEband21,GREENband21,REDband21,NIRband21,SWIR1band21,SWIR2band21)
 plotRGB(landsat8_21,3,2,1,stretch="lin")
+
+#crop landsat 2021----
 fuji21<-crop(landsat8_21,fujiext)
 plotRGB(fuji21,4,3,2, stretch="lin")
 
-#firme spettrali
+#firme spettrali----
 
 fuji2013ss<-brick("fuji2013.jpg")
 fuji2021ss<-brick("fuji2021.jpg")
@@ -162,11 +123,11 @@ view(spsign)
 
 
 
-ggplot(data = spsign, aes(x = band, y="reflectance")) +
+ggplot(data = spsign, aes(x = bande, y="reflectance")) +
   geom_line(aes(y = neve, colour = "neve",cex=1)) +
   geom_line(aes(y = foresta, colour = "foresta",cex=1)) +
   geom_line(aes(y = lago, colour = "lago",cex=1)) +
-  scale_colour_manual("Legend", values = c("neve"="grey", "foresta"="green", 
+  scale_colour_manual("Legend", values = c("neve"="yellow", "foresta"="green", 
                                  "lago"="blue")) + 
   labs(title="Firma spettrale")+
   scale_x_continuous(breaks = c(1,2,3),labels = c("RED","GREEN","BLUE"))
@@ -174,7 +135,7 @@ ggplot(data = spsign, aes(x = band, y="reflectance")) +
 
 
 
-#analisi multitemporale
+#analisi multitemporale----
 
 list<-list.files(pattern = "fuji")
 diffsnow<-lapply(list, raster)
@@ -185,8 +146,7 @@ diffsnow <-diffsnow$fuji2021-diffsnow$fuji2013
 clb<-colorRampPalette(c('blue','white','red'))(100)
 plot(diffsnow, col=clb)
 
-
-#NDSI
+#NDSI----
 
 #green-swir/green+swir
 NDSI13<-(fuji13$X13banda3-fuji13$X13banda6)/(fuji13$X13banda3+fuji13$X13banda6)
@@ -196,5 +156,6 @@ cld <- colorRampPalette(c('blue','white','red'))(100)
 plot(NDSI13, col=cld, main="NDSI 2013")
 plot(NDSI21, col=cld, main="NDSI 2021")
 
+#differenza di NDSI----
 diffNDSI<-NDSI21- NDSI13
 plot(diffNDSI, col=clb)
