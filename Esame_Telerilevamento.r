@@ -9,6 +9,7 @@ install.packages("rworldxtra")
 install.packages("sf")
 install.packages("jpeg")
 install.packages("RStoolbox")
+install.packages("viridis")
 
 #library----
 library(raster)
@@ -26,6 +27,7 @@ library(sf)
 library(maptools)
 library(tidyr)
 library(lattice)
+library(viridis)
 
 #set working directory----
 setwd("c:/esame/")
@@ -81,7 +83,7 @@ plotRGB(landsat8_21,3,2,1,stretch="lin")
 
 #crop landsat 2021----
 fuji21<-crop(landsat8_21,fujiext)
-plotRGB(fuji21,4,3,2, stretch="lin")
+plotRGB(fuji21,r=4,g=3,b=2, stretch="lin")
 
 #firme spettrali----
 
@@ -158,9 +160,9 @@ plot(NDSI21, col=cld, main="NDSI 2021")
 
 #differenza di NDSI----
 diffNDSI<-NDSI21- NDSI13
-plot(diffNDSI, col=clb)
+
 #mappe con viridis e cividis----
-par(mfrow=c(2,2))
+par(mfrow=c(1,2))
 plot(diffNDSI, col=cividis(256),main="cividis")
 plot(diffNDSI, col=viridis(256),main="viridis")
 
@@ -173,3 +175,47 @@ plot(diffNDSI, col=viridis(256),main="viridis")
 #"rocket" (or "F")
 #"mako" (or "G")
 #"turbo" (or "H")
+
+
+
+#classification----
+class<-unsuperClass(fuji13, nClasses = 5) 
+class1<-unsuperClass(fuji21, nClasses = 5) 
+
+par(mfrow=c(1,2))
+plot(class$map, main="fuji13")
+plot(class1$map, main="fuji21")
+dev.off()
+
+#plot-----
+ggplot() +
+  geom_raster(fuji13, mapping = aes(x = x, y = y, fill = layer)) +
+  scale_fill_viridis()  +
+  ggtitle("bla bla bla")
+
+
+
+
+#temperatura media 1970-2000----
+average<-list.files(pattern = "avg")
+average
+average1<-lapply(average,raster)
+average<-stack(average1)
+
+averagecrop70_20<-crop(average, extent(126,153,28,55))
+
+plot(averagecrop70_20, col=viridis(256))
+
+
+#temperatura massima futura----
+proiezioni<-brick("temp_max_2021_40.tif")
+max2021_40<-crop(proiezioni, extent(126,153,28,55))
+plot(max2021_40, col=viridis(256))
+
+
+#vediamo il risultato
+par(mfrow=c(1,2))
+plot(max2021_40$temp_max_2021_40.1, col=viridis(256), main="2021-2040")
+plot(averagecrop70_20$t_avg_jan, col=viridis(256),main="1970-2000")
+dev.off()
+
