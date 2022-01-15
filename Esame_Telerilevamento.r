@@ -11,6 +11,7 @@ install.packages("jpeg")
 install.packages("RStoolbox")
 install.packages("viridis")
 install.packages("cowplot")
+install.packages("Hmisc")
 
 #library----
 library(raster)
@@ -34,6 +35,8 @@ library(tidyr)
 library(cowplot)
 library(egg)
 library(ggpubr)
+library(Hmisc)
+
 
 #set working directory----
 setwd("c:/esame/")
@@ -105,6 +108,10 @@ dev.off()
 plotRGB(fuji2013ss,1,2,3, stretch="lin")
 click(fuji2021ss, id=T, xy=T, cell=T, type="p", pch=16, cex=4, col="red")
 
+
+plotRGB(fuji2021ss,1,2,3, stretch="lin")                                  #DA VERIFICARE
+click(fuji2021ss, id=T, xy=T, cell=T, type="p", pch=16, cex=4, col="red") #DA VERIFICARE
+
 #click(fuji2013ss, id=T, xy=T, cell=T, type="p", pch=16, cex=4, col="red")
 #x     y    cell fuji2013.1 fuji2013.2 fuji2013.3
 #1 783.5 721.5 1131592        238        238        238
@@ -142,7 +149,7 @@ ggplot(data = spsign, aes(x = bande, y="reflectance")) +
 
 
 
-
+  #Da rivedere e provare a fare le firme spettrali su immagini diverse
 #analisi multitemporale----
 
 list<-list.files(pattern = "fuji")
@@ -153,40 +160,43 @@ plot(diffsnow)
 diffsnow <-diffsnow$fuji2021-diffsnow$fuji2013
 clb<-colorRampPalette(c('blue','white','red'))(100)
 plot(diffsnow, col=clb)
+plot(diffsnow, col=viridis(256))
 
+#possiamo fare un par
+par(mfrow=c(1,2))
+plot(diffsnow, col=clb, main="Difference snow 2021/2013")
+plot(diffsnow, col=viridis(256),main="Difference snow 2021/2013 (Viridis)")
+dev.off()
 #NDSI----
 
 #green-swir/green+swir
 NDSI13<-(fuji13$X13banda3-fuji13$X13banda6)/(fuji13$X13banda3+fuji13$X13banda6)
 NDSI21<-(fuji21$X21banda3-fuji21$X21banda6)/(fuji21$X21banda3+fuji21$X21banda6)
 
-cld <- colorRampPalette(c('blue','white','red'))(100)
+#Plot2013
+par(mfrow=c(1,2))
 plot(NDSI13, col=cld, main="NDSI 2013")
+plot(NDSI13, col=cividis(256),main="NDSI 2013 (Cividis)")
+
+#Plot2021
 plot(NDSI21, col=cld, main="NDSI 2021")
+plot(NDSI21, col=cividis(256),main="NDSI 2013 (Cividis)")
+dev.off()
 
 #differenza di NDSI----
 diffNDSI<-NDSI21- NDSI13
 
 #mappe con viridis e cividis----
-par(mfrow=c(1,2))
-plot(diffNDSI, col=cividis(256),main="cividis")
-plot(diffNDSI, col=viridis(256),main="viridis")
-
-
-#"magma" (or "A")
-#"inferno" (or "B")
-#"plasma" (or "C")
-#"viridis" (or "D")
-#"cividis" (or "E")
-#"rocket" (or "F")
-#"mako" (or "G")
-#"turbo" (or "H")
-
+par(mfrow=c(2,2))
+plot(diffNDSI, main="Differenza NDSI 2021/2013")
+plot(diffNDSI, col=cld ,main="Differenza NDSI 2021/2013 (cld)")
+plot(diffNDSI, col=cividis(256),main="Differenza NDSI 2021/2013 (Cividis)")
+plot(diffNDSI, col=viridis(256),main="Differenza NDSI 2021/2013 (Viridis)")
 
 
 #classification----
-class<-unsuperClass(fuji13, nClasses = 5) 
-class1<-unsuperClass(fuji21, nClasses = 5) 
+class<-unsuperClass(fuji13, nClasses = 4)  #CAMBIARE I NOMI
+class1<-unsuperClass(fuji21, nClasses = 4) 
 
 par(mfrow=c(1,2))
 plot(class$map, main="fuji13")
@@ -218,14 +228,14 @@ plot(averagecrop70_20$t_avg_jan, col=viridis(256),main="1970-2000")
 dev.off()
 
 
-#####
+#ggplot japan temperatura max 2021/2040----
 datafuji2140<-as.data.frame(max2021_40$temp_max_2021_40.1,xy=TRUE)%>%drop_na()
 head(datafuji2140)
 
-#
+#Geometry of japan----
 japangeometry<-rnaturalearth:: ne_countries(country = "japan", returnclass = "sf")
 
-
+#ggplot per la temperatura massima futura----
 tempmaxgg<-ggplot()+
   geom_raster(aes(x=x,y=y, fill=temp_max_2021_40.1),data = datafuji2140)+
   geom_sf(fill="transparent",data = japangeometry)+
@@ -237,13 +247,13 @@ tempmaxgg<-ggplot()+
         panel.grid.minor = element_blank(),
         panel.ontop = TRUE,
         panel.background = element_rect(fill=NA,colour = "black"))
-       
 
-#####
+tempmaxgg       
+
+#ggplot japan temperatura media 1970/2000----
 
 datafuji7020<-as.data.frame(averagecrop70_20$t_avg_jan,xy=TRUE)%>%drop_na()
 head(datafuji7020)
-
 
 tempavrgg<-ggplot()+
   geom_raster(aes(x=x,y=y, fill=t_avg_jan),data = datafuji7020)+
@@ -257,9 +267,9 @@ tempavrgg<-ggplot()+
         panel.ontop = TRUE,
         panel.background = element_rect(fill=NA,colour = "black"))
      
+tempavrgg
 
-
-
+#Uniamo i 2 ggplot----
 ggarrange(tempavrgg, tempavrgg, ncol=2, nrow=1, common.legend = TRUE, legend="right")
 
 #Analisi a histogrammi della vartiazione di temperatura passata e futura----
@@ -269,8 +279,14 @@ hist(averagecrop70_20$t_avg_jan)
 
 primo<- hist(max2021_40$temp_max_2021_40.1,)            #cambiare le labels e posizionare questo grafico in fondo     
 secondo<- hist(averagecrop70_20$t_avg_jan)                     
-plot( primo , col=rgb(0,0,1,1/4), xlim=c(-30,20))  
-plot( secondo , col=rgb(1,0,0,1/4), xlim=c(-30,20), add=T)  
+plot( secondo , col=rgb(1,0,0,1/4), xlim=c(-40,20), xlab="Gradi Celsius", ylab="Frequenza di Temperatura", 
+      main="Picchi massimi di temperatura possibili entro il 2040")
+plot( primo , col=rgb(0,0,1,1/4), xlim=c(-40,20), add=T)  
+minor.tick(tick.ratio = 0.4)
+
+
+
+ 
 
 
 
