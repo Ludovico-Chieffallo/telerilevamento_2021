@@ -10,6 +10,7 @@ install.packages("sf")
 install.packages("jpeg")
 install.packages("RStoolbox")
 install.packages("viridis")
+install.packages("cowplot")
 
 #library----
 library(raster)
@@ -28,6 +29,9 @@ library(maptools)
 library(tidyr)
 library(lattice)
 library(viridis)
+library(rnaturalearth)
+library(tidyr)
+library(cowplot)
 
 #set working directory----
 setwd("c:/esame/")
@@ -213,9 +217,52 @@ max2021_40<-crop(proiezioni, extent(126,153,28,55))
 plot(max2021_40, col=viridis(256))
 
 
-#vediamo il risultato
+#vediamo il risultato----
 par(mfrow=c(1,2))
 plot(max2021_40$temp_max_2021_40.1, col=viridis(256), main="2021-2040")
 plot(averagecrop70_20$t_avg_jan, col=viridis(256),main="1970-2000")
 dev.off()
 
+#####
+datafuji2140<-as.data.frame(max2021_40$temp_max_2021_40.1,xy=TRUE)%>%drop_na()
+head(datafuji)
+
+#
+japangeometry<-rnaturalearth:: ne_countries(country = "japan", returnclass = "sf")
+
+
+tempmaxgg<-ggplot()+
+  geom_raster(aes(x=x,y=y, fill=temp_max_2021_40.1),data = datafuji)+
+  geom_sf(fill="transparent",data = japangeometry)+
+  scale_fill_viridis(name="C°",direction = 1)+
+  labs(x="Longitude",y="Latitude", title = "Temperatura massima 2021-2040", 
+       subtitle = "Area:Giappone", caption = "Source:Worldclim, 2021-2040")+
+  cowplot::theme_cowplot()+
+  theme(panel.grid.major = element_line(colour ="black",linetype = "dashed",size = 0.3 ),
+        panel.grid.minor = element_blank(),
+        panel.ontop = TRUE,
+        panel.background = element_rect(fill=NA,colour = "black"))
+       
+
+#####
+
+datafuji7020<-as.data.frame(averagecrop70_20$t_avg_jan,xy=TRUE)%>%drop_na()
+head(datafuji7020)
+
+
+tempavrgg<-ggplot()+
+  geom_raster(aes(x=x,y=y, fill=t_avg_jan),data = datafuji7020)+
+  geom_sf(fill="transparent",data = japangeometry)+
+  scale_fill_viridis(name="C°",direction = 1)+
+  labs(x="Longitude",y="Latitude", title = "Temperatura media 1970-2000", 
+       subtitle = "Area:Giappone", caption = "Source:Worldclim, 1970-2000")+
+  cowplot::theme_cowplot()+
+  theme(panel.grid.major = element_line(colour ="black",linetype = "dashed",size = 0.3 ),
+        panel.grid.minor = element_blank(),
+        panel.ontop = TRUE,
+        panel.background = element_rect(fill=NA,colour = "black"))
+     
+
+
+
+ggarrange(tempavrgg, tempavrgg, ncol=2, nrow=1, common.legend = TRUE, legend="bottom")
