@@ -32,6 +32,8 @@ library(viridis)
 library(rnaturalearth)
 library(tidyr)
 library(cowplot)
+library(egg)
+library(ggpubr)
 
 #set working directory----
 setwd("c:/esame/")
@@ -191,14 +193,6 @@ plot(class$map, main="fuji13")
 plot(class1$map, main="fuji21")
 dev.off()
 
-#plot-----
-ggplot() +
-  geom_raster(fuji13, mapping = aes(x = x, y = y, fill = layer)) +
-  scale_fill_viridis()  +
-  ggtitle("bla bla bla")
-
-
-
 
 #temperatura media 1970-2000----
 average<-list.files(pattern = "avg")
@@ -223,16 +217,17 @@ plot(max2021_40$temp_max_2021_40.1, col=viridis(256), main="2021-2040")
 plot(averagecrop70_20$t_avg_jan, col=viridis(256),main="1970-2000")
 dev.off()
 
+
 #####
 datafuji2140<-as.data.frame(max2021_40$temp_max_2021_40.1,xy=TRUE)%>%drop_na()
-head(datafuji)
+head(datafuji2140)
 
 #
 japangeometry<-rnaturalearth:: ne_countries(country = "japan", returnclass = "sf")
 
 
 tempmaxgg<-ggplot()+
-  geom_raster(aes(x=x,y=y, fill=temp_max_2021_40.1),data = datafuji)+
+  geom_raster(aes(x=x,y=y, fill=temp_max_2021_40.1),data = datafuji2140)+
   geom_sf(fill="transparent",data = japangeometry)+
   scale_fill_viridis(name="C°",direction = 1)+
   labs(x="Longitude",y="Latitude", title = "Temperatura massima 2021-2040", 
@@ -265,4 +260,18 @@ tempavrgg<-ggplot()+
 
 
 
-ggarrange(tempavrgg, tempavrgg, ncol=2, nrow=1, common.legend = TRUE, legend="bottom")
+ggarrange(tempavrgg, tempavrgg, ncol=2, nrow=1, common.legend = TRUE, legend="right")
+
+#Analisi a histogrammi della vartiazione di temperatura passata e futura----
+hist(max2021_40$temp_max_2021_40.1)
+hist(averagecrop70_20$t_avg_jan)
+
+
+primo<- hist(max2021_40$temp_max_2021_40.1,)            #cambiare le labels e posizionare questo grafico in fondo     
+secondo<- hist(averagecrop70_20$t_avg_jan)                     
+plot( primo , col=rgb(0,0,1,1/4), xlim=c(-30,20))  
+plot( secondo , col=rgb(1,0,0,1/4), xlim=c(-30,20), add=T)  
+
+
+
+
