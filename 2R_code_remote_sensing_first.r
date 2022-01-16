@@ -19,11 +19,9 @@ plot(p224r63_2011)      #Con la funzione plot creiamo appunto un plot, che ci re
 #B6:INFRAROSSO TERMICO
 #B8:UN ALTRO INFRAROSSO MEDIO
 
-
 #Utilizziamo la funzione colorRampPalette per cambiare i colori all'interno del plot e chiamiamo questa funzione "cl"
 cl<-colorRampPalette(c('black' , 'grey' , 'light grey')) (100)  #Per far capire che black, grey e lightgrey fanno parte dello stesso argomento(colore) dobbiamo usare un VETTORE, per questo ci mettiamo una parentesi e ci mettiamo la "c" che in R indica una serie di argomenti
                                                                 #Il (100) indica invece il numero dei livelli dei colori e deve essere scritto esternamente perchè non fa parte della funzione
-
 #QUALCHE ESEMPIO CON I COLORI CAMBIATI
 clb<-colorRampPalette(c('dark blue' , 'blue' , 'light blue')) (100)
 plot(p224r63_2011, col=clb)
