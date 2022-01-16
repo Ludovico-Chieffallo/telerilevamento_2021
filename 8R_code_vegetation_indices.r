@@ -18,7 +18,6 @@ defor1
 # defor1_.2 = red
 # defor1_.3 = green
 
-
 #a questo punto possiamo fare il difference vegetation index
 
 dvi1<-defor1$defor1.1-defor1$defor1.2
