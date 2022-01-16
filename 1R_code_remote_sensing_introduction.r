@@ -1,5 +1,6 @@
 #Prima lezione introduttiva di telerilevamento
 #Iniziamo ad utilizzare il codice in R assegnando dei valori a dei nomi
+
 pippo<-3+3
 geo<- 2+2 #In quersto modo assegnamo a geo il valore 2+2 e a pippo il valore 3+3
 (3+3)/(2+2) #Avremo come risultato 1.5 ma in che modo possiamo farlo anche?
