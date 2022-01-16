@@ -284,10 +284,9 @@ plot( secondo , col=rgb(1,0,0,1/4), xlim=c(-40,20), xlab="Gradi Celsius", ylab="
 plot( primo , col=rgb(0,0,1,1/4), xlim=c(-40,20), add=T)  
 minor.tick(tick.ratio = 0.4)
 
-
-
- 
-
-
-
-
+labels<-c("temp 1970/2000", "temperatura max 2021/2040")
+legend("right", legend = labels,cex = 0.8,
+       inset = 0.01,
+       pch = 15,
+       col=c(rgb(1,0,0,1/4),
+             rgb(0,0,1,1/4)))
