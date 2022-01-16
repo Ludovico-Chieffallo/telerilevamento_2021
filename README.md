@@ -10,6 +10,6 @@
 #8. Indici di vegetazione (535-625)                                                                     
 #90. Land cover(629-742)                                                                
 #91. Codice per analisi della Variabilità (745-849)                                                        
-#92. Firme Spettrali (854-965) 
-#. Esame_Telerilevamento condice
+#92. Firme Spettrali (854-965)                                                                         
+#. Esame_Telerilevamento condice                                                                                     
 #. Codice completo del corso
