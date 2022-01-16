@@ -212,7 +212,7 @@ tempavrgg<-ggplot()+
         panel.grid.minor = element_blank(),
         panel.ontop = TRUE,
         panel.background = element_rect(fill=NA,colour = "black"))
-     
+
 tempavrgg
 
 #Uniamo i 2 ggplot----
@@ -225,7 +225,7 @@ hist(averagecrop70_20$t_avg_jan)
 
 primo<- hist(averagecrop70_20$t_avg_jan)  
 secondo<- hist(max2021_40$temp_max_2021_40.1,)               
-                   
+
 plot( primo , col=rgb(1,0,0,1/4), xlim=c(-40,20), xlab="Gradi Celsius", ylab="Frequenza di Temperatura", 
       main="Cambiamento di Temperatura entro il 2040")
 plot( secondo , col=rgb(0,0,1,1/4), xlim=c(-40,20), add=T)  
@@ -243,9 +243,12 @@ legend("right", legend = labels,cex = 0.8,
 #Spectral signature----
 
 fuji2013ss<-brick("fuji2013.jpg")
+fuji2021ss<-brick("fuji2021.jpg")
 
 par(mfrow=c(1,2))#possiamo usare ggplot con gridextra
 plotRGB(fuji2013ss,1,2,3, stretch="lin")
+plotRGB(fuji2021ss,1,2,3, stretch="lin")
+
 dev.off()
 
 
