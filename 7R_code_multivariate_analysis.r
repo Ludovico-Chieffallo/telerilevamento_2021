@@ -30,8 +30,6 @@ plot(p224r63_2011$B1_sre,p224r63_2011$B2_sre, col="red", pch=23, cex=2)
 pairs(p224r63_2011)
 
 
-
-
 library(raster)
 library(RStoolbox)
 setwd("c:/lab/")
