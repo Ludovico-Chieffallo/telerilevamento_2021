@@ -11,7 +11,6 @@
 #ESEMPIO
 #Soil Water Index - 10-daily SWI 12.5km Global V3
 
-
 #Usiamo dati copernicus
 #Carichiamo il pacchetto raster poichè lavoreremo con immagini
 library(raster)
