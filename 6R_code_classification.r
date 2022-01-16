@@ -73,6 +73,7 @@ gcc2<- unsuperClass(gc,nClasses = 2)  #Decidiamo di definire 2 classi
 gcc2      #Visualizziamo il risultato 
 plot(gcc2$map)     #Plottiamo decidendo di estrarre la mappa
 
+
 #facciamo la stessa cosa con 4 classi 
 
 gcc4<- unsuperClass(gc, nClasses = 4)
