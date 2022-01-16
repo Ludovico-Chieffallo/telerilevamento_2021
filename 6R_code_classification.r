@@ -75,7 +75,6 @@ plot(gcc2$map)     #Plottiamo decidendo di estrarre la mappa
 
 
 #facciamo la stessa cosa con 4 classi 
-
 gcc4<- unsuperClass(gc, nClasses = 4)
 gcc4
 plot(gcc4$map)
