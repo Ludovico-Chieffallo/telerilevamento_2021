@@ -18,4 +18,5 @@ getwd() #Per controllare la cartella di lavoro
 #Per fare questo utilizziamo la funzione stitch dove per prima cosa metteremo il nome del file di testo che abbiamo creato e salvato nella nostra cartella di riferimento.
 stitch("greenland.r", template = system.file("misc", "knitr-template.Rnw", package="knitr"))
 
+
 #Ci restituirà un file leggibile in LaTex con tutto il codice corrispondente
