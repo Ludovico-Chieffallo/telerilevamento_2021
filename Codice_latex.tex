@@ -1,0 +1,414 @@
+\documentclass{beamer}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{subfig}
+\usepackage{wrapfig}
+
+%FIRST FRAME
+\usetheme{Luebeck}
+\usecolortheme{crane}
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\title{IL TIEPIDO GHIACCIO DEL MONTE FUJI}
+\subtitle{Quel che resta, resterà?}
+\author{Ludovico Chieffallo}
+\date{\nodate}
+\institute{Alma Mater Studiorum, Università di Bologna\\
+\bigskip
+\includegraphics[width=0.5\textwidth]{unibo.png}
+}
+
+
+
+\begin{document}
+\maketitle
+\AtBeginSection[]
+{
+\begin{frame}{Indice}
+\tableofcontents[currentsection,currentsection,currentsectio]
+
+\end{frame}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduzione}
+\subsection{Cosa sta succedendo?}
+\begin{frame}{Cosa sta succedendo?}\pause
+\begin{itemize}
+    
+\item La NASA ha rilevato tramite satelliti, che il manto nevoso del Monte Fuji, nel dicembre 2021 ha registrato l'indice più basso degli ultimi 20 anni.\pause
+
+\item Le stazioni metereologiche hanno confermato le stesse osservazioni.\pause
+
+\item Lo scienziato Toshio Iguchi ha rilevato precipitazioni molto inferiori rispetto al solito.\pause
+
+\item È stato rilevato che il limite del bosco della montagna si sia spostato verso l'alto di 30 metri negli ultimi 40 anni, ciò è stato attribuito all'innalzamento delle temperature di circa 2 gradi Celsius.
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Qual è lo scopo del progetto?}
+
+\begin{frame}{Qual è lo scopo del progetto?}\pause
+
+\begin{tabular}{cl}  
+    \begin{tabular}{l}
+        \includegraphics[height=6cm, width=5.1cm]{introduzione.jpg}
+    \end{tabular}
+    & \begin{tabular}{5}
+        \parbox{0.4\linewidth}{%  change the parbox width as appropiate
+            \begin{itemize}
+               \item Indagare il grado di questi cambiamenti.\pause
+            
+                    \item Analizzare le cause.\pause
+            
+                \item Analizzare i possibili scenari Futuri 
+
+            \end{itemize}
+        }
+    \end{tabular}  \\
+\end{tabular}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Monte Fuji, 1 Gennaio 2021}
+
+\centering
+\includegraphics[width=0.9\textwidth]{introduzione2.jpg}
+    
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Come sono state scaricate le immagini?}
+
+\begin{frame}{Come sono state scaricate le immagini?}
+Sono state utilizzate varie fonti per scaricare le immagini di questo progetto:
+\bigskip
+\begin{itemize}
+    \item NASA Earth Observatory
+    \item GloVis USGS
+    \item Google Earth Engine
+    \end{itemize}
+
+    
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Classificazione}
+\subsection{Pacchetti di programmazione(R)}
+\begin{frame}{Pacchetti di programmazione (R)}
+Per questo progetto sono stati utilizzati vari pacchetti di programmazione
+\scriptsize \lstinputlisting[language=R]{prova.txt}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Raster e  RStoolbox}
+\begin{frame}{Raster e  RStoolbox}
+Per la classificazione sono stati usati i pacchetti "raster" e "RStoolbox"
+\lstinputlisting[language=R]{rs.txt}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Importazione file e analisi}
+
+A questo punto si è potuti passare all'importazione dei dati e alla classificazione:
+\bigskip
+
+\scriptsize\lstinputlisting[language=R]{un.txt}
+    
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{PlotRGB}
+\centering
+\includegraphics[width=1\textwidth]{Rplot.png}
+    
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Analisi multitemporale}
+
+\subsection{Codice}
+
+\begin{frame}{Analisi Multitemporale}
+A questo punto possiamo vedere visivamente quanto è cambiata la copertura di neve nell'area del monte Fuji:
+\bigskip
+\scriptsize\lstinputlisting[language=R]{name.txt}
+    
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Plot della differenza di neve 2021/2013}
+Qui possiamo vedere il plot risultante:
+\bigskip
+    \centering
+    \includegraphics[width=0.7\textwidth]{Rplot02.png}   
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Possono vedere tutti queste mappe?}
+
+\begin{frame}{Possono vedere tutti queste mappe?}\pause
+
+Purtroppo non tutti possono vedere queste mappe.
+
+Le persone affette da CVD (colour vision deficienty) non riescono a distinguere alcuni colori. 
+
+\centering
+ \includegraphics[width=0.9\textwidth]{cvd.jpg}   
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Frame Title}
+    
+Questo è un problema poichè rende le nostre mappe non scientificamente leggibili per tutti.
+
+La soluzione è usare delle palette che permettano a tutti di comprendere queste mappe.
+
+Useremo quindi la palette VIRIDIS facilmente comprensibile per tutti 
+
+\end{frame}    
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Plot della differenza di neve 2021/2013}
+ 
+\includegraphics[width=1\textwidth]{Rplot01.png}   
+    
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{NDSI}
+
+\begin{frame}{NDSI (Normalized Difference Snow Index)}
+  Il Normalized Difference Snow Index (NDSI) è un indice correlato alla presenza della neve.
+  
+  La neve ha tipicamente una riflettanza visibile (VIS) molto elevata e una riflettanza molto bassa nell'infrarosso a onde corte (SWIR).
+  
+  Questa è una caratteristica utilizzata per rilevare la neve distinguendola dalla maggior parte dei tipi di nuvole. Il manto nevoso viene rilevato utilizzando il rapporto NDSI.
+  \bigskip
+  
+  Il rapporto NDSI consiste in questa differenza:
+  \bigskip
+  \centering
+  \begin{equation}
+NDSI=\frac{green-swir^1}{green+swir^1}
+\nonumber
+\end{equation}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Qual è la soglia per capire se la neve è presente??}
+ \centering
+ Si considera che un pixel con NDSI $>$ 0.0 abbia della neve presente. Un pixel con NDSI $<=$ 0.0 è una superficie terrestre priva di neve (Riggs et al., 2016).   
+    
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Codice NDSI}
+\begin{frame}{Importare le immagini}
+Per prima cosa possiamo importare tutte le nostre immagini per creare la nostra immagine multispettrale:
+\bigskip
+\scriptsize\lstinputlisting[language=R]{ndsi.txt}
+    
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Crop delle immagini}
+Poiche sono delle immagini satellitari (LANDSAT 8) molto estese, abbiamo bisogno di fare un crop sulla zona di interesse:
+\bigskip
+\scriptsize\lstinputlisting[language=R]{crop.txt}
+    
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{PlotRGB con estensione sul monte fuji}
+\centering
+\includegraphics[width=1\textwidth]{Rplot03.png}  
+    
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Calcoliamo NDSI}
+Sappiamo quindi che la nostra formula è:
+  \bigskip
+  \centering
+  \begin{equation}
+NDSI=\frac{green-swir^1}{green+swir^1}
+\nonumber
+\end{equation}
+\bigskip
+Ma a questo punto come sappiamo quale bande usare?
+
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Calcoliamo NDSI}
+\centering
+Basta vedere la composizione di Landsat 8
+
+\bigskip
+\centering
+\includegraphics[width=0.5\textwidth]{oniono skin landsat.JPG}  
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+Finalmente possiamo calcolare NDSI
+ \bigskip
+ \scriptsize\lstinputlisting[language=R]{ndsi1.txt}
+\bigskip
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Plot NDSI}
+Qui ho usato la colorazione alternativa CIVIDIS (CVD friendly)
+\bigskip
+
+\scriptsize\lstinputlisting[language=R]{plot.txt} 
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Plot NDSI}
+\centering
+\includegraphics[width=0.4\textwidth]{Rplot04.png}  
+\includegraphics[width=0.4\textwidth]{Rplot05.png}  
+\includegraphics[width=0.4\textwidth]{Rplot06.png}  
+\includegraphics[width=0.4\textwidth]{Rplot07.png}  
+    
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Differenza NDSI}
+
+A questo punto possiamo fare la differenza tra i 2 NDSI:
+\bigskip
+
+\scriptsize\lstinputlisting[language=R]{diff.txt} 
+    
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Plot differenza NDSI}
+\centering
+\includegraphics[width=0.45\textwidth]{Rplot08.png}  
+\includegraphics[width=0.45\textwidth]{Rplot09.png}  
+    
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Previsioni future}
+\bigskip
+\begin{frame}{La situazione migliorerà o peggiorerà?}
+A questa risposta non possiamo rispondere con estrema certezza, ma possiamo scoprire insieme i dati futuri per capire come potrebbe evolversi la storia del monte più alto del Giappone.
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{Previsioni future}
+Per fare questo abbiamo bisogno di dati passati per fare un paragone affidabile:
+\bigskip
+\scriptsize\lstinputlisting[language=R]{datifut.txt} 
+    
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Dati 1970-2000}
+Adesso possiamo usare GGplot per visualizzare il nostro risultato:
+\tiny\lstinputlisting[language=R]{ggplot2.txt} 
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Plot temperatura media 1970-2000}
+    \centering
+\includegraphics[width=0.6\textwidth]{Rplot11.png}  
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   
+\begin{frame}{Dati futuri 2021-2040}
+\bigskip
+
+\tiny\lstinputlisting[language=R]{ggplot1.txt} 
+    
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Plot temperatua massima 2021-2040}
+    \centering
+\includegraphics[width=0.6\textwidth]{Rplot10.png}  
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Vediamo i plot insieme}
+\tiny\lstinputlisting[language=R]{arr.txt} 
+
+\centering
+\includegraphics[width=0.45\textwidth]{Rplot10.png}  
+\includegraphics[width=0.45\textwidth]{Rplot11.png}  
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Queste immagini sono comprensibili?}
+
+Ma a questo punto, siamo in grado di comprendere visivamente e con precisione l'innalzamento della temperatura?
+
+    
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Istogrammi}
+Ci vengono in aiuto gli istogrammi che riescono a darci una visione precisa dell'incremento stimato di temperatura entro il 2040.
+    
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Istogrammi}
+\centering
+    \tiny\lstinputlisting[language=R]{isto.txt} 
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Plot istogramma}
+\centering
+\includegraphics[width=1\textwidth]{Rplot13.png}  
+    
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\centering
+    GRAZIE DELL'ATTENZIONE!
+    \includegraphics[width=1\textwidth]{intro.jpg}  
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
